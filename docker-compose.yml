@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  coopgateway:
+    image: ${DOCKER_REGISTRY-}coopgateway
+    build:
+      context: .
+      dockerfile: CoopGateway/Dockerfile
