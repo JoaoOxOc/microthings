@@ -1,57 +1,30 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/auth/{everything}",
+      "DownstreamPathTemplate": "/weathergate/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "odoo-api-middleware",
-          "Port": 55005
+          "Host": "localhost",
+          "Port": 5000
         }
       ],
-      "UpstreamPathTemplate": "/odooauth/{everything}",
-      "UpstreamHttpMethod": [ "Get" ],
-      "SwaggerKey": "Authentication"
+      "UpstreamPathTemplate": "/weatherforecast/{everything}",
+      "UpstreamHttpMethod": [],
+      "SwaggerKey": "Logging"
     }
   ],
   "SwaggerEndPoints": [
     {
-      "Key": "Authentication",
+      "Key": "Logging",
+      "TransformByOcelotConfig": false,
       "Config": [
         {
-          "Name": "Authentication & Authorization",
+          "Name": "Logging API",
           "Version": "v1",
-          "Url": "http://odoo-api-middleware:55005/swagger/v1/swagger.json"
+          "Url": "http://localhost:5001/swagger/v1/swagger.json"
         }
       ]
     }
-    //{
-    //  "Key": "orders",
-    //  "Config": [
-    //    {
-    //      "Name": "Orders API",
-    //      "Version": "v0.9",
-    //      "Url": "http://localhost:5200/swagger/v0.9/swagger.json"
-    //    },
-    //    {
-    //      "Name": "Orders API",
-    //      "Version": "v1",
-    //      "Url": "http://localhost:5200/swagger/v1/swagger.json"
-    //    },
-    //    {
-    //      "Name": "Orders API",
-    //      "Version": "v2",
-    //      "Url": "http://localhost:5200/swagger/v2/swagger.json"
-    //    },
-    //    {
-    //      "Name": "Orders API",
-    //      "Version": "v3",
-    //      "Url": "http://localhost:5200/swagger/v3/swagger.json"
-    //    }
-    //  ]
-    //}
-  ],
-  "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5000"
-  }
+  ]
 }

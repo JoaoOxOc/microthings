@@ -35,8 +35,8 @@ namespace CoopGateway
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Cooperative Gateway API",
-                    Description = "Gateway for all cooperative backend service paths",
+                    Title = "Microthings Gateway API",
+                    Description = "Gateway for all things backend service paths",
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {

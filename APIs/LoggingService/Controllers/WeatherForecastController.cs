@@ -24,6 +24,19 @@ namespace LoggingService.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Gets weather forecast data
+        /// </summary>
+        /// <returns>Array of weather forecast data</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /weatherforecast/get
+        ///     {
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Returns always OK since it is a simple API method</response>
         [HttpGet("~/[controller]/get")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/json")]
