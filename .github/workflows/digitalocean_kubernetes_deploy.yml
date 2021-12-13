@@ -2,9 +2,9 @@
 #
 # To configure this workflow:
 #
-# 1. Ensure that your repository contains a Dockerfile
-# 2. Setup secrets in your repository by going to settings: Create ICR_NAMESPACE and DO_CLOUD_API_KEY
-# 3. Change the values for the REGISTRY_HOSTNAME, IMAGE_NAME, IKS_CLUSTER, DEPLOYMENT_NAME, and PORT
+# 1. Ensure that your repository contains the deploy-api-pod.yml and the dockerfiles
+# 2. Setup secrets in your repository by going to settings: Create DIGITALOCEAN_ACCESS_TOKEN, APP_NAME and LOGGING_DB_TYPE and others if you want to
+# 3. Change the values for the GITHUB_REPOSITORY, REGISTRY_HOSTNAME, IMAGE_NAME, DO_CLUSTER, GATEWAY_IMAGE_NAME, LOGGINGAPI_IMAGE_NAME and POD_NAME
 
 name: Docker Build and Deploy to DO kubernetes
 
