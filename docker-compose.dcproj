@@ -14,5 +14,7 @@
     </None>
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
+    <None Include="gateway.dockerfile" />
+    <None Include="loggingservice.dockerfile" />
   </ItemGroup>
 </Project>

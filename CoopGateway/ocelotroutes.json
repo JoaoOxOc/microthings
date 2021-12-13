@@ -5,8 +5,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5001
+          "Host": "LoggingService",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/weathergate/{everything}",
@@ -21,7 +21,7 @@
         {
           "Name": "Logging API",
           "Version": "v1",
-          "Url": "http://localhost:5001/swagger/v1/swagger.json"
+          "Url": "http://LoggingService:80/swagger/v1/swagger.json"
         }
       ]
     }

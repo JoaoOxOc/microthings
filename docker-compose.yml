@@ -3,6 +3,28 @@ version: '3.4'
 services:
   coopgateway:
     image: ${DOCKER_REGISTRY-}coopgateway
+    container_name: microthings_gateway
     build:
-      context: .
-      dockerfile: CoopGateway/Dockerfile
+        context: .
+        dockerfile: gateway.dockerfile
+    ports:
+        - "5000:80"
+    networks:
+        - microthings_bridge
+
+  loggingservice:
+    image: loggingservice
+    container_name: loggingservice
+    restart: always
+    build:
+        context: .
+        dockerfile: loggingservice.dockerfile
+    ports:
+        - "80"
+    networks:
+        - microthings_bridge
+
+networks:
+    microthings_bridge:
+        name: microthings_bridge
+        driver: bridge
