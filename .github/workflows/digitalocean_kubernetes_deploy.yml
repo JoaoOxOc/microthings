@@ -1,0 +1,73 @@
+# This workflow will build a docker container, publish it to Digitalocean Container Registry, and deploy it to DO kubernetes when a release is created
+#
+# To configure this workflow:
+#
+# 1. Ensure that your repository contains a Dockerfile
+# 2. Setup secrets in your repository by going to settings: Create ICR_NAMESPACE and DO_CLOUD_API_KEY
+# 3. Change the values for the REGISTRY_HOSTNAME, IMAGE_NAME, IKS_CLUSTER, DEPLOYMENT_NAME, and PORT
+
+name: Docker Build and Deploy to DO kubernetes
+
+on:
+  push:
+    branches: 
+      - build
+
+ # Environment variables available to all jobs and steps in this workflow - you must configure the secrets accordingly in the github Settings
+env:
+  GITHUB_SHA: ${{ github.sha }}
+  GITHUB_REPOSITORY: <your github user>/<your github repository>
+  REGISTRY_HOSTNAME: registry.digitalocean.com/<your DigitalOcean container registry name>
+  IMAGE_NAME: <the container image name you wish>
+  DO_CLUSTER: <the digitalocean cluster identifier>
+  PROJECT_IMAGE_NAME: <the image name for the project>
+  POD_NAME: <the pod name for all the containers>
+  DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+  APP_NAME: ${{secrets.APP_NAME}}
+  DATABASE_TYPE: ${{secrets.LOGGING_DB_TYPE}}
+  APIS_DEPLOYMENT_FILE_NAME: deploy-api-pod.yml
+
+jobs:
+  build:
+    name: Build docker images and deploy to DO kubernetes
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Install doctl
+      uses: digitalocean/action-doctl@v2.1.0
+      with:
+        token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+    
+    - name: Log in to DigitalOcean Container Registry with short-lived credentials
+      run: doctl registry login --expiry-seconds 6000
+      
+    - name: Build container image
+      run: docker build "registry.digitalocean.com/photosapi/$PROJECT_IMAGE_NAME" .
+    
+    - name: Push image to DigitalOcean Container Registry
+      run: docker push "registry.digitalocean.com/photosapi/$PROJECT_IMAGE_NAME":latest
+    
+    - name: authenticate to DO
+      run: doctl auth init
+
+    - name: Save DigitalOcean kubeconfig
+      run: doctl -t $DIGITALOCEAN_ACCESS_TOKEN k8s cluster config save $DO_CLUSTER
+    
+    - name: process environment variables
+      run: kubectl delete secret postgres-data
+      
+    - run: kubectl create secret generic postgres-data --from-literal=postgres-host=${{secrets.DO_POSTGRES_HOST}} --from-literal=postgres-port=${{secrets.DO_POSTGRES_PORT}} --from-literal=postgres-user=${{secrets.DO_POSTGRES_USER}} --from-literal=postgres-password=${{secrets.DO_POSTGRES_PASSWORD}}
+    
+    - run: kubectl describe secret postgres-data
+      
+    - name: Update deployment file
+      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i "s|<IMAGE>|$REGISTRY_HOSTNAME:latest|" $GITHUB_WORKSPACE/$APIS_DEPLOYMENT_FILE_NAME
+
+    - name: Deploy to DigitalOcean Kubernetes
+      run: kubectl apply -f $GITHUB_WORKSPACE/$APIS_DEPLOYMENT_FILE_NAME
+
+    - name: Verify deployment
+      run: kubectl rollout status deployment/$POD_NAME
