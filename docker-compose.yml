@@ -28,6 +28,22 @@ services:
     networks:
         - microthings_bridge
 
+
+  rabbitmq:
+    image: rabbitmq:3.9-management
+    container_name: 'microthings_rabbitmq'
+    ports:
+        - 5672:5672 #AMQP port
+        - 15672:15672 #management UI port
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/mnesia
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    environment:
+        - RABBITMQ_DEFAULT_USER=guest
+        - RABBITMQ_DEFAULT_PASS=guest
+    networks:
+        - microthings_bridge
+
 networks:
     microthings_bridge:
         name: microthings_bridge
