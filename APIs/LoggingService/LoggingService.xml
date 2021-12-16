@@ -19,5 +19,70 @@
              </remarks>
              <response code="200">Returns always OK since it is a simple API method</response>
         </member>
+        <member name="M:LoggingService.Controllers.WeatherForecastController.SendLogNotification">
+             <summary>
+             Test RabbitMQ message publish
+             </summary>
+             <returns>Just success true or false</returns>
+             <remarks>
+             Sample request:
+            
+                 GET /weatherforecast/publishLog
+                 {
+                 }
+            
+             </remarks>
+             <response code="200">Returns OK if sent successfully</response>
+             <response code="500">Returns error if not sent</response>
+        </member>
+        <member name="T:LoggingService.Models.LoggingNotification">
+            <summary>
+            Logging Notification Model
+            </summary>
+        </member>
+        <member name="T:LoggingService.Services.MassTransitService">
+            <summary>
+            Deals with the injection of MassTransit Service
+            </summary>
+        </member>
+        <member name="M:LoggingService.Services.MassTransitService.ConfigureMassTransitRabbitMQ(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Injects MassTransit with RabbitMQ connection
+            </summary>
+            <param name="services">the dependency injection container</param>
+            <param name="configuration">the app configuration container</param>
+            <returns></returns>
+        </member>
+        <member name="T:LoggingService.Services.RabbitMQSender">
+            <summary>
+            Deals with RabbitMQ message sending or publishing
+            </summary>
+        </member>
+        <member name="M:LoggingService.Services.RabbitMQSender.#ctor(Microsoft.Extensions.Configuration.IConfiguration,MassTransit.IBus)">
+            <summary>
+            
+            </summary>
+            <param name="configuration">dependency injection of app configuration container</param>
+            <param name="bus">dependency injection of MassTransit bus object</param>
+        </member>
+        <member name="M:LoggingService.Services.RabbitMQSender.PublishNotificationMessage(LoggingService.Models.LoggingNotification)">
+            <summary>
+            Async method to send message through RabbitMQ Exchange
+            </summary>
+            <param name="logNotification">The notification object to be sent</param>
+            <returns></returns>
+        </member>
+        <member name="T:LoggingService.Services.SwaggerService">
+            <summary>
+            Injects Swagger with it's configuration
+            </summary>
+        </member>
+        <member name="M:LoggingService.Services.SwaggerService.ConfigureSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Injects Swagger with it's configuration
+            </summary>
+            <param name="services">the dependency injection container</param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

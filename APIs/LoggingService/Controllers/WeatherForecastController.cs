@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using LoggingService.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,10 +19,12 @@ namespace LoggingService.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IRabbitMQSender _rabbitMqSender;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IRabbitMQSender rabbitMqSender)
         {
             _logger = logger;
+            _rabbitMqSender = rabbitMqSender;
         }
 
         /// <summary>
@@ -52,6 +55,47 @@ namespace LoggingService.Controllers
             .ToArray();
 
             return StatusCode((int)System.Net.HttpStatusCode.OK, weatherData);
+        }
+
+        /// <summary>
+        /// Test RabbitMQ message publish
+        /// </summary>
+        /// <returns>Just success true or false</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /weatherforecast/publishLog
+        ///     {
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Returns OK if sent successfully</response>
+        /// <response code="500">Returns error if not sent</response>
+        [HttpGet("~/[controller]/publishLog")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Produces("application/json")]
+        public async Task<ObjectResult> SendLogNotification()
+        {
+            bool success = await _rabbitMqSender.PublishNotificationMessage(new Models.LoggingNotification { 
+                CreatedAt = DateTime.Now, 
+                CreatedById = 1, 
+                LoggingId = 1, 
+                Message="My first log notification", 
+                Trace="Will stay in the queue until someone consumes",
+                Severity="High",
+                MicroserviceIdentifier="LoggingService",
+                NotificationType="Slack"
+            });
+            if (success)
+            {
+                return StatusCode((int)System.Net.HttpStatusCode.OK, success);
+            }
+            else
+            {
+
+                return StatusCode((int)System.Net.HttpStatusCode.InternalServerError, success);
+            }
         }
     }
 }

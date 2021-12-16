@@ -18,7 +18,7 @@ services:
     restart: always
     environment: 
         ASPNETCORE_ENVIRONMENT: Development
-        ASPNETCORE_URLS: http://+:5001
+        ASPNETCORE_URLS: http://+:80
         ApplicationSettings:DatabaseType: MySql
     build:
         context: .
@@ -29,7 +29,7 @@ services:
         - microthings_bridge
 
 
-  rabbitmq:
+  microthings_rabbitmq:
     image: rabbitmq:3.9-management
     container_name: 'microthings_rabbitmq'
     ports:
