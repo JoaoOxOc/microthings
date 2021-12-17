@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31911.196
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32002.185
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoopGateway", "CoopGateway\CoopGateway.csproj", "{F120F3C7-72E3-4DD8-9C23-F11F873219AD}"
 EndProject
@@ -9,7 +9,11 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggingService", "APIs\LoggingService\LoggingService.csproj", "{D1ECCBF2-5C11-44DE-A989-E3FB725F5140}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationsService", "APIs\NotificationsService\NotificationsService.csproj", "{9EB8EF54-8A25-45BE-B002-2008D11880A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationsService", "APIs\NotificationsService\NotificationsService.csproj", "{9EB8EF54-8A25-45BE-B002-2008D11880A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{CE64C448-0D74-4C25-BB64-07FC33375710}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "microthings_shared", "Libraries\microthings_shared\microthings_shared.csproj", "{F836A97F-0FCC-4355-BDD8-F7592A04B980}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +37,16 @@ Global
 		{9EB8EF54-8A25-45BE-B002-2008D11880A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EB8EF54-8A25-45BE-B002-2008D11880A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EB8EF54-8A25-45BE-B002-2008D11880A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F836A97F-0FCC-4355-BDD8-F7592A04B980}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F836A97F-0FCC-4355-BDD8-F7592A04B980}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F836A97F-0FCC-4355-BDD8-F7592A04B980}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F836A97F-0FCC-4355-BDD8-F7592A04B980}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F836A97F-0FCC-4355-BDD8-F7592A04B980} = {CE64C448-0D74-4C25-BB64-07FC33375710}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A03C8EB-DEB7-4E4A-93B0-D581DB9E6F16}

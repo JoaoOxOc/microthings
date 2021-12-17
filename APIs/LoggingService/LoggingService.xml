@@ -35,11 +35,6 @@
              <response code="200">Returns OK if sent successfully</response>
              <response code="500">Returns error if not sent</response>
         </member>
-        <member name="T:LoggingService.Models.LoggingNotification">
-            <summary>
-            Logging Notification Model
-            </summary>
-        </member>
         <member name="T:LoggingService.Services.MassTransitService">
             <summary>
             Deals with the injection of MassTransit Service
@@ -65,7 +60,7 @@
             <param name="configuration">dependency injection of app configuration container</param>
             <param name="bus">dependency injection of MassTransit bus object</param>
         </member>
-        <member name="M:LoggingService.Services.RabbitMQSender.PublishNotificationMessage(LoggingService.Models.LoggingNotification)">
+        <member name="M:LoggingService.Services.RabbitMQSender.PublishNotificationMessage(microthings_shared.Models.LoggingNotification)">
             <summary>
             Async method to send message through RabbitMQ Exchange
             </summary>

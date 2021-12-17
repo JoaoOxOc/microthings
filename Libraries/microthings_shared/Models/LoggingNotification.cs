@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LoggingService.Models
+namespace microthings_shared.Models
 {
     /// <summary>
     /// Logging Notification Model

@@ -12,6 +12,19 @@
       "UpstreamPathTemplate": "/weathergate/{everything}",
       "UpstreamHttpMethod": [],
       "SwaggerKey": "Logging"
+    },
+    {
+      "DownstreamPathTemplate": "/notifications/pushNotification",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "NotificationsService",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/notify/pushNotification",
+      "UpstreamHttpMethod": [ "Post" ],
+      "SwaggerKey": "Notifications"
     }
   ],
   "SwaggerEndPoints": [
@@ -22,6 +35,16 @@
           "Name": "Logging API",
           "Version": "v1",
           "Url": "http://LoggingService:80/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "Notifications",
+      "Config": [
+        {
+          "Name": "Notifications API",
+          "Version": "v1",
+          "Url": "http://NotificationsService:80/swagger/v1/swagger.json"
         }
       ]
     }

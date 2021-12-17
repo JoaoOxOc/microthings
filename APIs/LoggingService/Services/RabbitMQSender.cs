@@ -1,6 +1,6 @@
-﻿using LoggingService.Models;
-using MassTransit;
+﻿using MassTransit;
 using Microsoft.Extensions.Configuration;
+using microthings_shared.Models;
 using System;
 using System.Threading.Tasks;
 

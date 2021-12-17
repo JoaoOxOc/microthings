@@ -1,5 +1,5 @@
-﻿using LoggingService.Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using microthings_shared.Models;
 
 namespace LoggingService.Services
 {

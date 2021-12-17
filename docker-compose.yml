@@ -27,7 +27,20 @@ services:
         - "80"
     networks:
         - microthings_bridge
-
+        
+  notificationsservice:
+    image: notificationsservice
+    container_name: notificationsservice
+    restart: always
+    environment: 
+        ASPNETCORE_URLS: http://+:80
+    build:
+        context: .
+        dockerfile: notificationsservice.dockerfile
+    ports:
+        - "80"
+    networks:
+        - microthings_bridge
 
   microthings_rabbitmq:
     image: rabbitmq:3.9-management

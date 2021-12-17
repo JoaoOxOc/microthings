@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using microthings_shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,7 +78,7 @@ namespace LoggingService.Controllers
         [Produces("application/json")]
         public async Task<ObjectResult> SendLogNotification()
         {
-            bool success = await _rabbitMqSender.PublishNotificationMessage(new Models.LoggingNotification { 
+            bool success = await _rabbitMqSender.PublishNotificationMessage(new LoggingNotification { 
                 CreatedAt = DateTime.Now, 
                 CreatedById = 1, 
                 LoggingId = 1, 
