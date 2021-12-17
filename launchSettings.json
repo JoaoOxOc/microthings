@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "coopgateway": "StartWithoutDebugging",
+        "loggingservice": "StartWithoutDebugging",
+        "microthings_rabbitmq": "StartWithoutDebugging",
+        "notificationsservice": "StartWithoutDebugging"
+      }
+    }
+  }
+}

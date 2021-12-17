@@ -13,8 +13,8 @@ namespace microthings_shared.Models
         public string Severity { get; set; }
         public string MicroserviceIdentifier { get; set; }
         public string NotificationType { get; set; }
-
         public DateTime CreatedAt { get; set; }
         public int CreatedById { get; set; }
+
     }
 }
