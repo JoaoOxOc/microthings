@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "microthings_shared", "Libraries\microthings_shared\microthings_shared.csproj", "{F836A97F-0FCC-4355-BDD8-F7592A04B980}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIs", "APIs", "{70638CAE-4B99-4C65-B5EC-B93A7FB85E7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{D1ECCBF2-5C11-44DE-A989-E3FB725F5140} = {70638CAE-4B99-4C65-B5EC-B93A7FB85E7E}
+		{9EB8EF54-8A25-45BE-B002-2008D11880A9} = {70638CAE-4B99-4C65-B5EC-B93A7FB85E7E}
 		{F836A97F-0FCC-4355-BDD8-F7592A04B980} = {CE64C448-0D74-4C25-BB64-07FC33375710}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
