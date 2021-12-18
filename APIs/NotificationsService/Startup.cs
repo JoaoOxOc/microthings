@@ -1,3 +1,5 @@
+using CorePush.Apple;
+using CorePush.Google;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +35,8 @@ namespace NotificationsService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient<INotificationsQueueConsumer, NotificationsQueueConsumer>();
+            services.AddHttpClient<FcmSender>();
+            services.AddHttpClient<ApnSender>();
             services.AddControllers();
             services.ConfigureSwagger();
 

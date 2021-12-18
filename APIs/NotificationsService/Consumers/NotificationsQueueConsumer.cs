@@ -36,7 +36,7 @@ namespace NotificationsService.Consumers
                 notificationModel.NotificationTypes.Add(NotificationTypesEnum.PushNotification);
             }
 
-            await _notificationWorker.PublishNotification(notificationModel);
+            var response = await _notificationWorker.PublishNotification(notificationModel);
         }
     }
 }

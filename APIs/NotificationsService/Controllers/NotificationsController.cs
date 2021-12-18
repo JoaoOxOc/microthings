@@ -29,7 +29,7 @@ namespace NotificationsService.Controllers
         ///    1,2,3
         /// ],
         /// </summary>
-        /// <returns>Just success true or false</returns>
+        /// <returns>The response Model data</returns>
         /// <remarks>
         /// Sample request:
         ///
@@ -62,8 +62,8 @@ namespace NotificationsService.Controllers
         public async Task<ObjectResult> PushNotification([FromBody]NotificationModel notification)
         {
 
-            await _notificationWorker.PublishNotification(notification);
-            return StatusCode((int)System.Net.HttpStatusCode.OK, null);
+            var response = await _notificationWorker.PublishNotification(notification);
+            return StatusCode((int)System.Net.HttpStatusCode.OK, response);
         }
     }
 }

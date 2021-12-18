@@ -1,5 +1,6 @@
 ﻿using microthings_shared.Enums;
 using microthings_shared.Models;
+using NotificationsService.Models;
 using NotificationsService.NotificationsWorkers.Interfaces;
 using System;
 using System.Threading.Tasks;
@@ -20,57 +21,68 @@ namespace NotificationsService.NotificationsWorkers
         }
 
 
-        public async Task PublishNotification(NotificationModel notification)
+        public async Task<ResponseModel> PublishNotification(NotificationModel notification)
         {
+            var response = new ResponseModel();
             foreach(NotificationTypesEnum notificationType in notification.NotificationTypes)
             {
                 switch (notificationType)
                 {
                     case NotificationTypesEnum.Slack:
                         {
-                            await SendSlackNotification(notification);
+                            response = await SendSlackNotification(notification);
                         } break;
                     case NotificationTypesEnum.PushNotification:
                         {
-                            await SendPushNotification(notification);
+                            response = await SendPushNotification(notification);
                         }
                         break;
                     case NotificationTypesEnum.SignalR:
                         {
-                            await SendSignalRNotification(notification);
+                            response = await SendSignalRNotification(notification);
                         }
                         break;
                 }
             }
+            return response;
         }
 
 
-        private async Task SendSlackNotification(NotificationModel notification)
+        private async Task<ResponseModel> SendSlackNotification(NotificationModel notification)
         {
             try
             {
                 await _slackNotificator.SendSlackMessageToChannelAsync(notification.LoggingNotification.Message);
+                return new ResponseModel() { IsSuccess = true, Message = "Success" };
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-
+                return new ResponseModel() { IsSuccess = false, Message = ex.Message + "|Trace: " + ex.StackTrace };
             }
         }
 
-        private async Task SendPushNotification(NotificationModel notification)
+        private async Task<ResponseModel> SendPushNotification(NotificationModel notification)
         {
-
+            var responseFCM = await _pushNotificator.SendNotification(new FCMNotificationModel()
+            {
+                DeviceId="test",
+                IsAndroidDevice = true,
+                Title=notification.LoggingNotification.Message,
+                Body=notification.LoggingNotification.Trace
+            });
+            return responseFCM;
         }
 
-        private async Task SendSignalRNotification(NotificationModel notification)
+        private async Task<ResponseModel> SendSignalRNotification(NotificationModel notification)
         {
             try
             {
                 await _signalrNotificator.PublishLogNotificationAsync(notification.LoggingNotification);
+                return new ResponseModel() { IsSuccess = true, Message = "Success" };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                return new ResponseModel() { IsSuccess = false, Message = ex.Message + "|Trace: " + ex.StackTrace };
             }
         }
     }
