@@ -25,8 +25,4 @@
     <ProjectReference Include="..\..\Libraries\microthings_shared\microthings_shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Hubs\" />
-  </ItemGroup>
-
 </Project>

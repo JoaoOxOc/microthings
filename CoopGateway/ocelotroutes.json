@@ -25,6 +25,28 @@
       "UpstreamPathTemplate": "/notify/pushNotification",
       "UpstreamHttpMethod": [ "Post" ],
       "SwaggerKey": "Notifications"
+    },
+    {
+      "DownstreamPathTemplate": "/log-notification",
+      "DownstreamScheme": "ws",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "NotificationsService",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/subscribe/log-notifications"
+    },
+    {
+      "DownstreamPathTemplate": "/log-notification/negotiate",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "NotificationsService",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/subscribe/log-notifications/negotiate"
     }
   ],
   "SwaggerEndPoints": [

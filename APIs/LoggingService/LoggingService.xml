@@ -19,7 +19,7 @@
              </remarks>
              <response code="200">Returns always OK since it is a simple API method</response>
         </member>
-        <member name="M:LoggingService.Controllers.WeatherForecastController.SendLogNotification">
+        <member name="M:LoggingService.Controllers.WeatherForecastController.SendLogNotification(microthings_shared.Models.LoggingNotification)">
              <summary>
              Test RabbitMQ message publish
              </summary>
@@ -27,8 +27,16 @@
              <remarks>
              Sample request:
             
-                 GET /weatherforecast/publishLog
-                 {
+                 POST /weatherforecast/publishLog
+                 { 
+                     CreatedAt = "2021-12-18 15:00:00", 
+                     CreatedById = 1, 
+                     LoggingId = 1, 
+                     Message="My first log notification", 
+                     Trace="Will stay in the queue until someone consumes",
+                     Severity="High",
+                     MicroserviceIdentifier="LoggingService",
+                     NotificationType="Slack"
                  }
             
              </remarks>

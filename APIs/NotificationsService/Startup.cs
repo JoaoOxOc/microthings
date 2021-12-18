@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NotificationsService.Consumers;
+using NotificationsService.Hubs;
 using NotificationsService.NotificationsWorkers;
 using NotificationsService.NotificationsWorkers.Interfaces;
 using NotificationsService.NotificationsWorkers.Notificators;
@@ -38,6 +39,8 @@ namespace NotificationsService
             // .NET Native DI Abstraction
             RegisterServices(services);
             services.ConfigureRabbitConsumer(Configuration);
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +61,7 @@ namespace NotificationsService
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<LogNotificationPublisher>("/log-notification");
             });
         }
 
@@ -68,6 +72,7 @@ namespace NotificationsService
             services.TryAddSingleton<IPushNotificator, PushNotificator>();
             services.TryAddSingleton<ISignalrNotificator, SignalrNotificator>();
             services.TryAddSingleton<ISlackNotificator, SlackNotificator>();
+            services.TryAddSingleton<ILogNotificationPublisher, LogNotificationPublisher>();
         }
     }
 }

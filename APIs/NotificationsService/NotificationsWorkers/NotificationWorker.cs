@@ -32,12 +32,12 @@ namespace NotificationsService.NotificationsWorkers
                         } break;
                     case NotificationTypesEnum.PushNotification:
                         {
-                            SendPushNotification(notification);
+                            await SendPushNotification(notification);
                         }
                         break;
                     case NotificationTypesEnum.SignalR:
                         {
-                            SendSignalRNotification(notification);
+                            await SendSignalRNotification(notification);
                         }
                         break;
                 }
@@ -57,14 +57,21 @@ namespace NotificationsService.NotificationsWorkers
             }
         }
 
-        private void SendPushNotification(NotificationModel notification)
+        private async Task SendPushNotification(NotificationModel notification)
         {
 
         }
 
-        private void SendSignalRNotification(NotificationModel notification)
+        private async Task SendSignalRNotification(NotificationModel notification)
         {
+            try
+            {
+                await _signalrNotificator.PublishLogNotificationAsync(notification.LoggingNotification);
+            }
+            catch (Exception)
+            {
 
+            }
         }
     }
 }

@@ -37,9 +37,6 @@ namespace NotificationsService.Consumers
             }
 
             await _notificationWorker.PublishNotification(notificationModel);
-            //Validate the Ticket Data
-            //Store to Database
-            //Notify the user via Email / SMS
         }
     }
 }

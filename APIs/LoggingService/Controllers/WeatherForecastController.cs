@@ -65,29 +65,28 @@ namespace LoggingService.Controllers
         /// <remarks>
         /// Sample request:
         ///
-        ///     GET /weatherforecast/publishLog
-        ///     {
+        ///     POST /weatherforecast/publishLog
+        ///     { 
+        ///         CreatedAt = "2021-12-18 15:00:00", 
+        ///         CreatedById = 1, 
+        ///         LoggingId = 1, 
+        ///         Message="My first log notification", 
+        ///         Trace="Will stay in the queue until someone consumes",
+        ///         Severity="High",
+        ///         MicroserviceIdentifier="LoggingService",
+        ///         NotificationType="Slack"
         ///     }
         ///
         /// </remarks>
         /// <response code="200">Returns OK if sent successfully</response>
         /// <response code="500">Returns error if not sent</response>
-        [HttpGet("~/[controller]/publishLog")]
+        [HttpPost("~/[controller]/publishLog")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Produces("application/json")]
-        public async Task<ObjectResult> SendLogNotification()
+        public async Task<ObjectResult> SendLogNotification([FromBody] LoggingNotification logNotification)
         {
-            bool success = await _rabbitMqSender.PublishNotificationMessage(new LoggingNotification { 
-                CreatedAt = DateTime.Now, 
-                CreatedById = 1, 
-                LoggingId = 1, 
-                Message="My first log notification", 
-                Trace="Will stay in the queue until someone consumes",
-                Severity="High",
-                MicroserviceIdentifier="LoggingService",
-                NotificationType="Slack"
-            });
+            bool success = await _rabbitMqSender.PublishNotificationMessage(logNotification);
             if (success)
             {
                 return StatusCode((int)System.Net.HttpStatusCode.OK, success);
