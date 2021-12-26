@@ -15,5 +15,17 @@ namespace NotificationsService.Hubs
 
             await Clients.All.SendAsync("OnLogNotifyPublished", logNotification);
         }
+
+        public override async Task OnConnectedAsync()
+        {
+            await Clients.All.SendAsync("Notify", $"{Context.ConnectionId} welcome to SignalR");
+            await base.OnConnectedAsync();
+        }
+
+        public override async Task OnDisconnectedAsync(Exception exception)
+        {
+            await Clients.All.SendAsync("Notify", $"{Context.ConnectionId} goodbye");
+            await base.OnDisconnectedAsync(exception);
+        }
     }
 }
