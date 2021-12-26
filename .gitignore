@@ -33,7 +33,10 @@ msbuild.wrn
 /out-tsc
 
 # dependencies
-/node_modules
+/frontends/node_modules
+/frontends/packages/node_modules
+/frontends/packages/microthings_frontcontainer/node_modules
+/frontends/packages/microthings_home/node_modules
 
 # IDEs and editors
 /.idea

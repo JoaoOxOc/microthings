@@ -1,0 +1,16 @@
+{
+    "name": "@microthings/root",
+    "version": "1.0.0",
+    "private": true,
+    "author": "Joao Almeida",
+    "license": "MIT",
+    "workspaces": [
+        "packages/*"
+    ],
+    "devDependencies": {
+        "lerna": "^4.0.0"
+    },
+    "scripts": {
+        "run:container:dev": "lerna run --scope @microthings/container --stream dev"
+    }
+}
