@@ -82,7 +82,7 @@ namespace NotificationsService.NotificationsWorkers
             }
             catch (Exception ex)
             {
-                return new ResponseModel() { IsSuccess = false, Message = ex.Message + "|Trace: " + ex.StackTrace };
+                return new ResponseModel() { IsSuccess = false, Message = ex.Message + "|data: " + ex.Data + "|source: " + ex.Source + "|inner: " + ex.InnerException + "|Trace: " + ex.StackTrace };
             }
         }
     }

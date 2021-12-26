@@ -10,21 +10,28 @@ namespace NotificationsService.Hubs
 {
     public class LogNotificationPublisher : Hub, ILogNotificationPublisher
     {
+        protected IHubContext<LogNotificationPublisher> _context;
+
+        public LogNotificationPublisher(IHubContext<LogNotificationPublisher> context)
+        {
+            _context = context;
+        }
+
         public async Task PublishLogNotification(LoggingNotification logNotification)
         {
 
-            await Clients.All.SendAsync("OnLogNotifyPublished", logNotification);
+            await _context.Clients.All.SendAsync("OnLogNotifyPublished", logNotification);
         }
 
         public override async Task OnConnectedAsync()
         {
-            await Clients.All.SendAsync("Notify", $"{Context.ConnectionId} welcome to SignalR");
+            await _context.Clients.All.SendAsync("Notify", $"{Context.ConnectionId} welcome to SignalR");
             await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            await Clients.All.SendAsync("Notify", $"{Context.ConnectionId} goodbye");
+            await _context.Clients.All.SendAsync("Notify", $"{Context.ConnectionId} goodbye");
             await base.OnDisconnectedAsync(exception);
         }
     }
