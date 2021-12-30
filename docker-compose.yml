@@ -34,6 +34,8 @@ services:
     restart: always
     environment: 
         ASPNETCORE_URLS: http://+:80
+        ApplicationSettings:FCMSEnderId: "1076186370235"
+        ApplicationSettings:FCMServerKey: "AAAA-pG00Ls:APA91bGcJok5_bs_XaejfhtnLFtSDjL1_FCY76Na2cUPc34y83h96JQH3xiRN3e-7U3XThym77SsTndqVd61lOgdR2jjZval6XQ51E7DKbjlAuNV1f0wCBoU-6R3gPrCG_Vs_imqcPdc"
     build:
         context: .
         dockerfile: notificationsservice.dockerfile
@@ -49,6 +51,8 @@ services:
         - 5672:5672 #AMQP port
         - 15672:15672 #management UI port
     volumes:
+        - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+        - ./definitions.json:/etc/rabbitmq/definitions.json
         - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/mnesia
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     environment:
